@@ -7,6 +7,7 @@ public class ButtonManager : MonoBehaviour
     public Canvas PopUpCanvas; // Referensi ke PopUpCanvas
     public Button productDetailButton; // Referensi ke tombol View Detail
     public Button exitButton; // Referensi ke tombol Exit
+    public Button[] glassesButtons; // Array tombol untuk mengganti kacamata
 
     void Start()
     {
@@ -19,6 +20,13 @@ public class ButtonManager : MonoBehaviour
 
         // Menambahkan listener untuk tombol Exit
         exitButton.onClick.AddListener(ClosePopUp);
+
+        // Pastikan semua tombol untuk mengganti kacamata terhubung dengan fungsi yang sesuai
+        GlassesManager glassesManager = FindObjectOfType<GlassesManager>();
+        if (glassesManager != null)
+        {
+            glassesManager.glassesButtons = glassesButtons;
+        }
     }
 
     public void ShowPopUp()
