@@ -1,50 +1,40 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 
 public class GlassesManager : MonoBehaviour
 {
-    public ARFaceManager faceManager;
+    public ARFaceManager arFaceManager; // Referensi ke ARFaceManager
     public List<GameObject> glassesPrefabs; // Daftar prefab kacamata
-    public Button[] glassesButtons; // Array tombol untuk mengganti kacamata
 
     void Start()
     {
-        if (faceManager == null)
-        {
-            faceManager = FindObjectOfType<ARFaceManager>();
-        }
-
-        // Menambahkan listener untuk setiap tombol
-        for (int i = 0; i < glassesButtons.Length; i++)
-        {
-            int index = i; // Local copy untuk digunakan dalam lambda
-            glassesButtons[i].onClick.AddListener(() => ChangeGlasses(index));
-        }
+        if (arFaceManager == null) Debug.LogError("ARFaceManager is not assigned!");
+        if (glassesPrefabs == null || glassesPrefabs.Count == 0) Debug.LogError("GlassesPrefabs list is empty or not assigned!");
     }
 
-    public void ChangeGlasses(int index)
+    public void ChangeGlasses(GameObject newGlassesPrefab)
     {
-        // Validasi indeks kacamata
-        if (index < 0 || index >= glassesPrefabs.Count) return;
-
-        // Ganti kacamata pada semua wajah yang terdeteksi
-        foreach (var face in faceManager.trackables)
+        if (arFaceManager != null)
         {
-            var arFace = face.GetComponent<ARFace>();
-            if (arFace != null)
+            arFaceManager.facePrefab = newGlassesPrefab;
+            // Force update face prefab for existing faces
+            foreach (var face in arFaceManager.trackables)
             {
-                // Hapus kacamata lama
-                foreach (Transform child in arFace.transform)
+                var arFace = face.GetComponent<ARFace>();
+                if (arFace != null)
                 {
-                    Destroy(child.gameObject);
-                }
+                    // Remove old glasses
+                    foreach (Transform child in arFace.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
 
-                // Tambahkan kacamata baru
-                GameObject newGlasses = Instantiate(glassesPrefabs[index], arFace.transform);
-                newGlasses.transform.localPosition = Vector3.zero;
-                newGlasses.transform.localRotation = Quaternion.identity;
+                    // Instantiate new glasses
+                    GameObject newGlasses = Instantiate(newGlassesPrefab, arFace.transform);
+                    newGlasses.transform.localPosition = Vector3.zero;
+                    newGlasses.transform.localRotation = Quaternion.identity;
+                }
             }
         }
     }

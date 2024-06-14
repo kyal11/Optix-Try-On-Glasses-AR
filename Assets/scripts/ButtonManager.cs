@@ -7,7 +7,9 @@ public class ButtonManager : MonoBehaviour
     public Canvas PopUpCanvas; // Referensi ke PopUpCanvas
     public Button productDetailButton; // Referensi ke tombol View Detail
     public Button exitButton; // Referensi ke tombol Exit
-    public Button[] glassesButtons; // Array tombol untuk mengganti kacamata
+    public RawImage productRawImage; // Referensi ke RawImage pada PopUpCanvas
+    public SnapToItem snapToItem; // Referensi ke SnapToItem script
+    public Texture2D[] glassesTextures; // Array of Textures for glasses
 
     void Start()
     {
@@ -21,18 +23,28 @@ public class ButtonManager : MonoBehaviour
         // Menambahkan listener untuk tombol Exit
         exitButton.onClick.AddListener(ClosePopUp);
 
-        // Pastikan semua tombol untuk mengganti kacamata terhubung dengan fungsi yang sesuai
-        GlassesManager glassesManager = FindObjectOfType<GlassesManager>();
-        if (glassesManager != null)
-        {
-            glassesManager.glassesButtons = glassesButtons;
-        }
+        // Debugging for null references
+        if (productRawImage == null) Debug.LogError("ProductRawImage is not assigned!");
+        if (snapToItem == null) Debug.LogError("SnapToItem is not assigned!");
+        if (glassesTextures == null || glassesTextures.Length == 0) Debug.LogError("GlassesTextures array is empty or not assigned!");
     }
 
     public void ShowPopUp()
     {
         // Menampilkan PopUpCanvas
         PopUpCanvas.gameObject.SetActive(true);
+
+        // Update product image based on the selected item
+        int currentItem = snapToItem.GetCurrentItemIndex();
+        if (currentItem >= 0 && currentItem < glassesTextures.Length)
+        {
+            productRawImage.texture = glassesTextures[currentItem];
+            Debug.Log("Pop-up image updated to: " + glassesTextures[currentItem].name);
+        }
+        else
+        {
+            Debug.LogError("Invalid item index or texture not found!");
+        }
     }
 
     public void ClosePopUp()

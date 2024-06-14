@@ -3,7 +3,12 @@ guid: 66dda2aea71b6c146bc839a62a4b72aa
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glasses_silver
+    second: {fileID: 2100000, guid: c2f42d357509c5d47a367adc283251d5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -40,6 +45,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
