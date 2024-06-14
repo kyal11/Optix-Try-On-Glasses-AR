@@ -1,39 +1,14 @@
 fileFormatVersion: 2
-guid: a4cad2814d96b964ca63d054f2c0ec54
+guid: 14cd8d1f8f88a12449ef82ac1512a158
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Glass02
-    second: {fileID: 2100000, guid: 61e838d572ef09344946f70e5f271be9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: frame
-    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: handle
-    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: leatherhandle
-    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: nose_protector
-    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
-    materialName: 0
+    materialName: 1
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
