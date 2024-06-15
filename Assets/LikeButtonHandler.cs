@@ -9,6 +9,9 @@ public class LikeButtonHandler : MonoBehaviour
     public Image uiElementToChangeColor;
     public Color newColor = Color.red;
 
+    private Color originalColor;
+    private bool isLiked = false;
+
     private void Start()
     {
         // Pastikan tombol sudah terhubung
@@ -16,15 +19,30 @@ public class LikeButtonHandler : MonoBehaviour
         {
             likeButton.onClick.AddListener(OnLikeButtonClick);
         }
+
+        // Simpan warna asli elemen UI
+        if (uiElementToChangeColor != null)
+        {
+            originalColor = uiElementToChangeColor.color;
+        }
     }
 
     private void OnLikeButtonClick()
     {
         if (uiElementToChangeColor != null)
         {
-            // Ubah warna elemen UI
-            uiElementToChangeColor.color = newColor;
+            if (isLiked)
+            {
+                // Kembalikan warna asli
+                uiElementToChangeColor.color = originalColor;
+                isLiked = false;
+            }
+            else
+            {
+                // Ubah ke warna baru
+                uiElementToChangeColor.color = newColor;
+                isLiked = true;
+            }
         }
     }
 }
-

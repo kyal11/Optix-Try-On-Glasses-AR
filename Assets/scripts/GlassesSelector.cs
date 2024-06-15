@@ -9,12 +9,22 @@ public class GlassesSelector : MonoBehaviour, IEndDragHandler
     [SerializeField] private Image popUpImage; // Referensi ke gambar di PopUpCanvas
     [SerializeField] private Sprite[] glassesSprites; // Array gambar kacamata untuk PopUpCanvas
     [SerializeField] private GameObject[] glassesObjects; // Array objek kacamata 3D
+    [SerializeField] private Button likeButton; // Referensi ke tombol like
+    [SerializeField] private Image uiElementToChangeColor; // Referensi ke elemen UI yang berubah warna
+    [SerializeField] private Color likeColor = Color.red; // Warna ketika like
+    [SerializeField] private Color unlikeColor = Color.white; // Warna ketika unlike
 
     private int currentIndex = 0;
+    private bool[] likeStatuses; // Array untuk menyimpan status like setiap objek
 
     void Start()
     {
+        likeStatuses = new bool[glassesObjects.Length]; // Inisialisasi array status like
         UpdateGlasses();
+        if (likeButton != null)
+        {
+            likeButton.onClick.AddListener(OnLikeButtonClick);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -52,5 +62,31 @@ public class GlassesSelector : MonoBehaviour, IEndDragHandler
 
         // Perbarui gambar di PopUpCanvas
         popUpImage.sprite = glassesSprites[currentIndex];
+
+        // Perbarui status like pada elemen UI
+        if (likeStatuses[currentIndex])
+        {
+            uiElementToChangeColor.color = likeColor;
+        }
+        else
+        {
+            uiElementToChangeColor.color = unlikeColor;
+        }
+    }
+
+    private void OnLikeButtonClick()
+    {
+        // Toggle status like
+        likeStatuses[currentIndex] = !likeStatuses[currentIndex];
+
+        // Perbarui warna elemen UI
+        if (likeStatuses[currentIndex])
+        {
+            uiElementToChangeColor.color = likeColor;
+        }
+        else
+        {
+            uiElementToChangeColor.color = unlikeColor;
+        }
     }
 }
