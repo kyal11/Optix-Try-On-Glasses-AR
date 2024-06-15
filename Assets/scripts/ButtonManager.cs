@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
@@ -51,5 +52,10 @@ public class ButtonManager : MonoBehaviour
     {
         // Menyembunyikan PopUpCanvas
         PopUpCanvas.gameObject.SetActive(false);
+    }
+
+    public void ExitApplication()
+    {
+        Application.Quit();
     }
 }
