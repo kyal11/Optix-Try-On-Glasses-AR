@@ -12,25 +12,38 @@ public class SnapToItem : MonoBehaviour
     public HorizontalLayoutGroup HLG;
     public TMP_Text NameLabel;
     public string[] ItemNames;
-    public GlassesManager glassesManager; // Referensi ke GlassesManager
 
-    bool isSnapped;
+    public Button likeButton;
+    public Image likeButtonImage;
+    public Sprite likeSprite;
+    public Sprite unlikeSprite;
+
+    private bool isSnapped;
     public float snapForce;
-    float snapSeed;
+    private float snapSeed;
+    private int currentItemIndex = -1;
 
-    private int currentItemIndex = -1; // Variable to store the current item index
+    // Dictionary to store like status in memory
+    private Dictionary<int, bool> likeStatuses = new Dictionary<int, bool>();
 
     void Start()
     {
         isSnapped = false;
 
-        // Debugging for null references
         if (scrollRect == null) Debug.LogError("ScrollRect is not assigned!");
         if (contentPanel == null) Debug.LogError("ContentPanel is not assigned!");
         if (sampleListItem == null) Debug.LogError("SampleListItem is not assigned!");
         if (HLG == null) Debug.LogError("HorizontalLayoutGroup is not assigned!");
         if (NameLabel == null) Debug.LogError("NameLabel is not assigned!");
-        if (glassesManager == null) Debug.LogError("GlassesManager is not assigned!");
+
+        if (likeButton != null)
+        {
+            likeButton.onClick.AddListener(ToggleLikeStatus);
+        }
+
+        if (likeButtonImage == null) Debug.LogError("LikeButtonImage is not assigned!");
+        if (likeSprite == null) Debug.LogError("LikeSprite is not assigned!");
+        if (unlikeSprite == null) Debug.LogError("UnlikeSprite is not assigned!");
     }
 
     void Update()
@@ -45,20 +58,15 @@ public class SnapToItem : MonoBehaviour
             if (contentPanel.localPosition.x == 0 - (currentItem * (sampleListItem.rect.width + HLG.spacing)))
             {
                 isSnapped = true;
-                currentItemIndex = currentItem; // Update the current item index
+                currentItemIndex = currentItem;
 
-                // Update NameLabel with the current item's name
                 if (NameLabel != null && ItemNames != null && ItemNames.Length > currentItem)
                 {
                     NameLabel.text = ItemNames[currentItem];
                     Debug.Log("Item selected: " + ItemNames[currentItem]);
                 }
 
-                // Notify GlassesManager to change the glasses
-                if (glassesManager != null && glassesManager.glassesPrefabs != null && glassesManager.glassesPrefabs.Count > currentItem)
-                {
-                    glassesManager.ChangeGlasses(glassesManager.glassesPrefabs[currentItem]);
-                }
+                UpdateLikeButton();
             }
         }
 
@@ -72,5 +80,48 @@ public class SnapToItem : MonoBehaviour
     public int GetCurrentItemIndex()
     {
         return currentItemIndex;
+    }
+
+    private void ToggleLikeStatus()
+    {
+        Debug.Log("Toogle Like");
+
+            bool isLiked = GetLikeStatus(currentItemIndex);
+            isLiked = !isLiked;
+            SaveLikeStatus(currentItemIndex, isLiked);
+            UpdateLikeButton();
+            Debug.Log("Toggled like status for item " + currentItemIndex + ": " + isLiked);
+    }
+
+    private void SaveLikeStatus(int itemId, bool isLiked)
+    {
+        if (likeStatuses.ContainsKey(itemId))
+        {
+            likeStatuses[itemId] = isLiked;
+        }
+        else
+        {
+            likeStatuses.Add(itemId, isLiked);
+        }
+        Debug.Log("Saved like status for item " + itemId + ": " + isLiked);
+    }
+
+    private bool GetLikeStatus(int itemId)
+    {
+        if (likeStatuses.ContainsKey(itemId))
+        {
+            Debug.Log("Retrieved like status for item " + itemId + ": " + likeStatuses[itemId]);
+            return likeStatuses[itemId];
+        }
+        Debug.Log("Like status for item " + itemId + " not found, defaulting to false.");
+        return false;
+    }
+
+    private void UpdateLikeButton()
+    {
+        Debug.Log("Update Status");
+        bool isLiked = GetLikeStatus(currentItemIndex);
+        likeButtonImage.sprite = isLiked ? likeSprite : unlikeSprite;
+
     }
 }

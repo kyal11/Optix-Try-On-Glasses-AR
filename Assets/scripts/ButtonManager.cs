@@ -7,6 +7,7 @@ public class ButtonManager : MonoBehaviour
     public Canvas MainCanvas; // Referensi ke MainCanvas
     public Canvas PopUpCanvas; // Referensi ke PopUpCanvas
     public Button productDetailButton; // Referensi ke tombol View Detail
+    public Button BackDetailButton;
     public Button exitButton; // Referensi ke tombol Exit
     public RawImage productRawImage; // Referensi ke RawImage pada PopUpCanvas
     public SnapToItem snapToItem; // Referensi ke SnapToItem script
@@ -21,6 +22,7 @@ public class ButtonManager : MonoBehaviour
         // Menambahkan listener untuk tombol Product Detail
         productDetailButton.onClick.AddListener(ShowPopUp);
 
+        BackDetailButton.onClick.AddListener(ExitApplication);
         // Menambahkan listener untuk tombol Exit
         exitButton.onClick.AddListener(ClosePopUp);
 
