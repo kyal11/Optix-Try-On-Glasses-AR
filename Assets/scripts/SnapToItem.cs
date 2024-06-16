@@ -9,16 +9,16 @@ public class SnapToItem : MonoBehaviour
     public ScrollRect scrollRect;
     public RectTransform contentPanel;
     public RectTransform sampleListItem;
-
     public HorizontalLayoutGroup HLG;
-    
     public TMP_Text NameLabel;
-    public string[] ItemName;
+    public string[] ItemNames;
+    public GlassesManager glassesManager; // Referensi ke GlassesManager
 
     bool isSnapped;
-
     public float snapForce;
     float snapSeed;
+
+    private int currentItemIndex = -1; // Variable to store the current item index
 
     void Start()
     {
@@ -30,19 +30,12 @@ public class SnapToItem : MonoBehaviour
         if (sampleListItem == null) Debug.LogError("SampleListItem is not assigned!");
         if (HLG == null) Debug.LogError("HorizontalLayoutGroup is not assigned!");
         if (NameLabel == null) Debug.LogError("NameLabel is not assigned!");
+        if (glassesManager == null) Debug.LogError("GlassesManager is not assigned!");
     }
 
     void Update()
     {
-        // Null checks to prevent NullReferenceException
-        // if (scrollRect == null || contentPanel == null || sampleListItem == null || HLG == null)
-        // {
-        //     Debug.LogError("One or more references are null in Update!");
-        //     return;
-        // }
-
         int currentItem = Mathf.RoundToInt((0 - contentPanel.localPosition.x / (sampleListItem.rect.width + HLG.spacing)));
-        Debug.Log(currentItem);
 
         if (scrollRect.velocity.magnitude < 200 && !isSnapped)
         {
@@ -52,10 +45,19 @@ public class SnapToItem : MonoBehaviour
             if (contentPanel.localPosition.x == 0 - (currentItem * (sampleListItem.rect.width + HLG.spacing)))
             {
                 isSnapped = true;
+                currentItemIndex = currentItem; // Update the current item index
+
                 // Update NameLabel with the current item's name
-                if (NameLabel != null && ItemName != null && ItemName.Length > currentItem)
+                if (NameLabel != null && ItemNames != null && ItemNames.Length > currentItem)
                 {
-                    NameLabel.text = ItemName[currentItem];
+                    NameLabel.text = ItemNames[currentItem];
+                    Debug.Log("Item selected: " + ItemNames[currentItem]);
+                }
+
+                // Notify GlassesManager to change the glasses
+                if (glassesManager != null && glassesManager.glassesPrefabs != null && glassesManager.glassesPrefabs.Count > currentItem)
+                {
+                    glassesManager.ChangeGlasses(glassesManager.glassesPrefabs[currentItem]);
                 }
             }
         }
@@ -65,5 +67,10 @@ public class SnapToItem : MonoBehaviour
             isSnapped = false;
             snapSeed = 0;
         }
+    }
+
+    public int GetCurrentItemIndex()
+    {
+        return currentItemIndex;
     }
 }

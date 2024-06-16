@@ -3,7 +3,32 @@ guid: a4cad2814d96b964ca63d054f2c0ec54
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass02
+    second: {fileID: 2100000, guid: 61e838d572ef09344946f70e5f271be9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frame
+    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: handle
+    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: leatherhandle
+    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: nose_protector
+    second: {fileID: 2100000, guid: d00a370ff5d168c45bdd8103d44718b5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -40,6 +65,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
