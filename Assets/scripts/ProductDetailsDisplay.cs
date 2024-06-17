@@ -9,17 +9,41 @@ public class ProductDetailsDisplay : MonoBehaviour
     public TextMeshProUGUI productDescriptionText; // Referensi ke TextMeshPro untuk deskripsi produk
     public TextMeshProUGUI productPriceText; // Referensi ke TextMeshPro untuk harga produk
 
+    private string apiUrl;
+    private string authToken;
+    private int productId;
+
     void Start()
     {
+        GetIntentData();
         StartCoroutine(GetProductDetails());
+    }
+
+    void GetIntentData()
+    {
+        using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        {
+            using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            {
+                using (AndroidJavaObject intent = currentActivity.Call<AndroidJavaObject>("getIntent"))
+                {
+                    productId = intent.Call<int>("getIntExtra", "productId", -1);
+                    authToken = intent.Call<string>("getStringExtra", "authToken");
+                    apiUrl = intent.Call<string>("getStringExtra", "apiUrl");
+
+                    Debug.Log("ProductId from Intent: " + productId);
+                    Debug.Log("AuthToken from Intent: " + authToken);
+                    Debug.Log("ApiUrl from Intent: " + apiUrl);
+                }
+            }
+        }
     }
 
     IEnumerator GetProductDetails()
     {
-        string apiUrl = "http://100.97.75.94:8080/products/352"; // URL API produk
-        string authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ5b2RoYW5hYmloYTJAZ21haWwuY29tIiwidXNlcm5hbWUiOiJ5b2RoYW5hYmloYTJAZ21haWwuY29tIn0.1GYZYS3i7fEyDbd1xcaM1LV7f5UDNYk6rjNzP_Y0ipo"; // Token otorisasi
+        string productDetailsUrl = apiUrl + "/products/" + productId; // URL API produk dengan apiUrl dan productId
 
-        UnityWebRequest www = UnityWebRequest.Get(apiUrl);
+        UnityWebRequest www = UnityWebRequest.Get(productDetailsUrl);
         www.SetRequestHeader("Authorization", "Bearer " + authToken);
 
         yield return www.SendWebRequest();

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1196986700
+CRC: 2456613185
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ca8b055264833210524a063510daf138
+    Hash: 8865a4c5601c0db369898f5392454654
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9c6fb8cc92b32239d803946969489ef0
@@ -35,12 +35,12 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/prefabs/glasses 6 - black-sunglasses/Tracking Glasses 6.prefab
-- Assets/prefabs/glasses 8 - aviator-sunglasses/Tracking Glasses 8.prefab
-- Assets/prefabs/glasses 4 - white-sunglasses/Tracking Glasses 4.prefab
-- Assets/prefabs/glasses 2/Tracking Glasses 2.prefab
-- Assets/prefabs/glasses 3 - pink-round-sunglasses/Tracking Glasses 3.prefab
-- Assets/prefabs/glasses 7/Tracking Glasses 7.prefab
-- Assets/prefabs/glasses 5 -orange-sunglasses/Tracking Glasses 5.prefab
-- Assets/prefabs/glasses 1 - cyclops-sunglasses/Tracking Glasses 1.prefab
+- Assets/prefabs/glasses 6 - black-sunglasses/552.prefab
+- Assets/prefabs/glasses 8 - aviator-sunglasses/652.prefab
+- Assets/prefabs/glasses 4 - white-sunglasses/454.prefab
+- Assets/prefabs/glasses 2/453.prefab
+- Assets/prefabs/glasses 3 - pink-round-sunglasses/352.prefab
+- Assets/prefabs/glasses 7/602.prefab
+- Assets/prefabs/glasses 5 -orange-sunglasses/502.prefab
+- Assets/prefabs/glasses 1 - cyclops-sunglasses/452.prefab
 Dependencies: []

@@ -6,18 +6,44 @@ using UnityEngine.XR.ARFoundation;
 public class GlassesManager : MonoBehaviour
 {
     public ARFaceManager arFaceManager;
-    public string assetBundleUrl = "http://100.97.75.94:8080/images_product/glassesbundle";
-    public string prefabName = "Tracking Glasses 3"; // Nama prefab yang ingin dimuat
+    private string assetBundleUrl;
+    private string prefabName;
+    private string authToken;
 
     void Start()
     {
+        GetIntentData();
         if (arFaceManager == null) Debug.LogError("ARFaceManager is not assigned!");
         StartCoroutine(DownloadAndLoadAssetBundle(assetBundleUrl, prefabName));
+    }
+
+    void GetIntentData()
+    {
+        using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        {
+            using (AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            {
+                using (AndroidJavaObject intent = currentActivity.Call<AndroidJavaObject>("getIntent"))
+                {
+                    int productId = intent.Call<int>("getIntExtra", "productId", -1);
+                    authToken = intent.Call<string>("getStringExtra", "authToken");
+                    string apiUrl = intent.Call<string>("getStringExtra", "apiUrl");
+                    assetBundleUrl = apiUrl + "/images_product/glassesbundle"; // Menggunakan apiUrl untuk assetBundleUrl
+                    prefabName = productId.ToString(); // Menggunakan productId sebagai prefabName
+
+                    Debug.Log("ProductId from Intent: " + productId);
+                    Debug.Log("AuthToken from Intent: " + authToken);
+                    Debug.Log("ApiUrl from Intent: " + apiUrl);
+                }
+            }
+        }
     }
 
     IEnumerator DownloadAndLoadAssetBundle(string url, string assetName)
     {
         UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(url);
+        www.SetRequestHeader("Authorization", "Bearer " + authToken);
+
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
@@ -62,8 +88,6 @@ public class GlassesManager : MonoBehaviour
             DestroyImmediate(arFace, true);
             newGlassesPrefab.AddComponent<ARFace>();
             newGlassesPrefab.AddComponent<ARFaceMeshVisualizer>();
-
-
         }
     }
 }
