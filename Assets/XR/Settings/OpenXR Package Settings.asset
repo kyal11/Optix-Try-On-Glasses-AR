@@ -693,8 +693,6 @@ MonoBehaviour:
   features: []
   m_renderMode: 1
   m_depthSubmissionMode: 0
-  m_optimizeBufferDiscards: 0
-  m_symmetricProjection: 0
 --- !u!114 &223775832187545043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,10 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: 2546252143104908873}
-  - {fileID: -6384962321466290203}
   - {fileID: 1835695396577058661}
-  - {fileID: -3273161360949438140}
-  - {fileID: 445621342520118739}
   - {fileID: 9036830521960979301}
   - {fileID: 8068549076200925544}
   - {fileID: 1291016145126204301}
@@ -975,12 +970,9 @@ MonoBehaviour:
   - {fileID: -8969437948219693420}
   - {fileID: 6561380594728430261}
   - {fileID: 3399384978937714996}
-  - {fileID: -2124662963389926797}
   - {fileID: -73534556198802307}
   m_renderMode: 1
   m_depthSubmissionMode: 0
-  m_optimizeBufferDiscards: 0
-  m_symmetricProjection: 0
 --- !u!114 &3393153777557094598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,11 +1202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: -1026741312406199773}
-  - {fileID: -1784824518716155068}
   - {fileID: -5314758283655915666}
-  - {fileID: 5115085048667360326}
-  - {fileID: -2066094607515444653}
-  - {fileID: -5673922249530851891}
   - {fileID: 351916999560247834}
   - {fileID: -5644752106798940241}
   - {fileID: -6406002812246132398}
@@ -1222,13 +1210,10 @@ MonoBehaviour:
   - {fileID: 453507973438920128}
   - {fileID: 9150387995142619497}
   - {fileID: 2107262960736555662}
-  - {fileID: 721090968905757127}
   - {fileID: 2111710479713091986}
   - {fileID: 5229186363387331269}
   m_renderMode: 1
   m_depthSubmissionMode: 0
-  m_optimizeBufferDiscards: 0
-  m_symmetricProjection: 0
 --- !u!114 &8068549076200925544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,12 +1244,6 @@ MonoBehaviour:
   - visibleName: Quest Pro
     manifestName: cambria
     enabled: 1
-  forceRemoveInternetPermission: 0
-  symmetricProjection: 0
-  systemSplashScreen: {fileID: 0}
-  optimizeBufferDiscards: 1
-  lateLatchingMode: 0
-  lateLatchingDebug: 0
 --- !u!114 &8187623290473864969
 MonoBehaviour:
   m_ObjectHideFlags: 0
