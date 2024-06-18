@@ -16,15 +16,15 @@ public class ProductDetailsDisplay : MonoBehaviour
     public Sprite likeSprite; // Sprite untuk like
     public Sprite unlikeSprite; // Sprite untuk unlike
     private string apiUrl = "http://100.97.75.94:8080";
-    private string authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ5b2RoYW5hYmloYTJAZ21haWwuY29tIiwidXNlcm5hbWUiOiJ5b2RoYW5hYmloYTJAZ21haWwuY29tIn0.1GYZYS3i7fEyDbd1xcaM1LV7f5UDNYk6rjNzP_Y0ipo";
-    private int productId = 552;
+    private string authToken = "";
+    private int productId = -1;
     private bool isLiked = false;
     private int likeId = -1;
-    private int userId = 52; // ID pengguna (dapat diperoleh dari autentikasi atau data intent)
+    private int userId = -1; // ID pengguna (dapat diperoleh dari autentikasi atau data intent)
 
     void Start()
     {
-        //GetIntentData();
+        GetIntentData();
         StartCoroutine(GetProductDetails());
         likeButton.onClick.AddListener(ToggleLikeStatus);
     }
@@ -38,12 +38,14 @@ public class ProductDetailsDisplay : MonoBehaviour
                 using (AndroidJavaObject intent = currentActivity.Call<AndroidJavaObject>("getIntent"))
                 {
                     productId = intent.Call<int>("getIntExtra", "productId", -1);
-                    authToken = intent.Call<string>("getStringExtra", "getAuthToken");
-                    apiUrl = intent.Call<string>("getStringExtra", "getApiUrl");
+                    userId = intent.Call<int>("getIntExtra", "userId", -1);
+                    authToken = intent.Call<string>("getStringExtra", "authToken");
+                    apiUrl = intent.Call<string>("getStringExtra", "apiUrl");
 
                     Debug.Log("ProductId from Intent: " + productId);
                     Debug.Log("AuthToken from Intent: " + authToken);
                     Debug.Log("ApiUrl from Intent: " + apiUrl);
+                    Debug.Log("UserId from Intent: " + userId);
                 }
             }
         }
