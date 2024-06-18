@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 1556231699
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: ardebugmenu
+      Dependencies: {}
+    Info_1:
+      Name: glassesbundle
+      Dependencies: {}
