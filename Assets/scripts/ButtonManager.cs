@@ -26,10 +26,6 @@ public class ButtonManager : MonoBehaviour
         // Menambahkan listener untuk tombol Exit
         exitButton.onClick.AddListener(ClosePopUp);
 
-        // Debugging for null references
-        if (productRawImage == null) Debug.LogError("ProductRawImage is not assigned!");
-        if (snapToItem == null) Debug.LogError("SnapToItem is not assigned!");
-        if (glassesTextures == null || glassesTextures.Length == 0) Debug.LogError("GlassesTextures array is empty or not assigned!");
     }
 
     public void ShowPopUp()
@@ -37,17 +33,17 @@ public class ButtonManager : MonoBehaviour
         // Menampilkan PopUpCanvas
         PopUpCanvas.gameObject.SetActive(true);
 
-        // Update product image based on the selected item
-        int currentItem = snapToItem.GetCurrentItemIndex();
-        if (currentItem >= 0 && currentItem < glassesTextures.Length)
-        {
-            productRawImage.texture = glassesTextures[currentItem];
-            Debug.Log("Pop-up image updated to: " + glassesTextures[currentItem].name);
-        }
-        else
-        {
-            Debug.LogError("Invalid item index or texture not found!");
-        }
+       // Update product image based on the selected item
+       //int currentItem = snapToItem.GetCurrentItemIndex();
+       // if (currentItem >= 0 && currentItem < glassesTextures.Length)
+       //{
+       //    productRawImage.texture = glassesTextures[currentItem];
+       //     Debug.Log("Pop-up image updated to: " + glassesTextures[currentItem].name);
+       //}
+       //else
+       // {
+       //     Debug.LogError("Invalid item index or texture not found!");
+       //}
     }
 
     public void ClosePopUp()
