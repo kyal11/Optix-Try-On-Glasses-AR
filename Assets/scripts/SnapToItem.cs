@@ -10,8 +10,7 @@ public class SnapToItem : MonoBehaviour
     public RectTransform contentPanel;
     public RectTransform sampleListItem;
     public HorizontalLayoutGroup HLG;
-    public TMP_Text NameLabel;
-    public string[] ItemNames;
+    public GlassesManager glassesManager;
 
     public Button likeButton;
     public Image likeButtonImage;
@@ -34,7 +33,6 @@ public class SnapToItem : MonoBehaviour
         if (contentPanel == null) Debug.LogError("ContentPanel is not assigned!");
         if (sampleListItem == null) Debug.LogError("SampleListItem is not assigned!");
         if (HLG == null) Debug.LogError("HorizontalLayoutGroup is not assigned!");
-        if (NameLabel == null) Debug.LogError("NameLabel is not assigned!");
 
         if (likeButton != null)
         {
@@ -59,14 +57,13 @@ public class SnapToItem : MonoBehaviour
             {
                 isSnapped = true;
                 currentItemIndex = currentItem;
-
-                if (NameLabel != null && ItemNames != null && ItemNames.Length > currentItem)
-                {
-                    NameLabel.text = ItemNames[currentItem];
-                    Debug.Log("Item selected: " + ItemNames[currentItem]);
-                }
-
+                Debug.Log("Item selected: " + currentItem);
                 UpdateLikeButton();
+
+                if (glassesManager != null && glassesManager.glassesPrefabs != null && glassesManager.glassesPrefabs.Count > currentItem)
+                {
+                    glassesManager.ChangeGlasses(glassesManager.glassesPrefabs[currentItem]);
+                }
             }
         }
 
